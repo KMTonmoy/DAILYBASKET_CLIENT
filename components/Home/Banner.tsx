@@ -29,13 +29,6 @@ const Banner = () => {
       image:
         "https://c.ndtvimg.com/2023-07/757utqg8_indian-masalas-or-spice-mixes_625x300_26_July_23.jpg?im=FaceCrop,algorithm=dnn,width=1200,height=738",
     },
-    {
-      id: 4,
-      title: "Cooking Essentials",
-      description: "Salt, oil, sugar and basic groceries",
-      image:
-        "https://www.seriouseats.com/thmb/fFdhyETX4DXRnuOErRINpL6GNMs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/sea-tier-3-primary-chinese-cooking-essentials-ebrockob-001-3d4a4d233af64a3dbc31496c140e6450.jpeg",
-    },
   ];
 
   // Auto slide functionality
@@ -44,7 +37,7 @@ const Banner = () => {
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [isAutoPlaying, slides.length]);
@@ -121,14 +114,18 @@ const Banner = () => {
           onClick={prevSlide}
           className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-all"
         >
-          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          <span className="text-2xl">
+            <ChevronLeft className=" sm:w-5 sm:h-5 text-white" />
+          </span>
         </button>
 
         <button
           onClick={nextSlide}
           className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-all"
         >
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          <span className="text-2xl">
+            <ChevronRight className=" sm:w-5 sm:h-5 text-white" />
+          </span>
         </button>
 
         {/* Slide Indicators - Green active dot */}
@@ -139,7 +136,7 @@ const Banner = () => {
               onClick={() => goToSlide(index)}
               className={`transition-all duration-300 ${
                 index === currentSlide
-                  ? "w-3 h-3 bg-green-500" // Active slide - green circle
+                  ? "w-2 h-3 bg-green-500"
                   : "w-2 h-2 bg-white/50 hover:bg-white/80" // Inactive slides
               } rounded-full`}
             />
