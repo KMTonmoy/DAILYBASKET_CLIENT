@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -19,15 +20,16 @@ import {
   Truck,
   ShoppingBag,
   Percent,
-  Apple,
-  Carrot,
 } from "lucide-react";
 
 const Navbar = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [activeItem, setActiveItem] = useState("Home");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +39,28 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Focus search input when search opens
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [searchOpen]);
+
+  const handleSearch = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+      setSearchOpen(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   const menuItems = [
     { name: "Home", href: "/", icon: Home, color: "text-gray-700" },
     {
@@ -45,41 +69,16 @@ const Navbar = () => {
       icon: Package,
       color: "text-gray-700",
     },
-    {
-      name: "Categories",
-      href: "/categories",
-      icon: Store,
-      color: "text-gray-700",
-    },
-    {
-      name: "Deals",
-      href: "/deals",
-      icon: Percent,
-      color: "text-red-600",
-      highlight: true,
-    },
+
     {
       name: "Recipes",
       href: "/recipes",
       icon: ChefHat,
       color: "text-gray-700",
     },
-    {
-      name: "Delivery",
-      href: "/delivery",
-      icon: Truck,
-      color: "text-gray-700",
-    },
+
     { name: "About", href: "/about", icon: Info, color: "text-gray-700" },
     { name: "Contact", href: "/contact", icon: Phone, color: "text-gray-700" },
-  ];
-
-  const categories = [
-    { name: "Fruits", icon: Apple, color: "text-red-500" },
-    { name: "Vegetables", icon: Carrot, color: "text-orange-500" },
-    { name: "Dairy", icon: "🥛", emoji: true },
-    { name: "Meat", icon: "🍗", emoji: true },
-    { name: "Bakery", icon: "🍞", emoji: true },
   ];
 
   const containerVariants = {
@@ -141,14 +140,13 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-20">
-            {/* Logo Section - Colorful Green */}
+            {/* Logo Section */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               className="flex-shrink-0 flex items-center space-x-3"
             >
               <Link href="/" className="flex items-center space-x-3 group">
-                {/* Colorful Logo Container */}
                 <div className="relative">
                   <motion.div
                     whileHover={{ rotate: 360 }}
@@ -172,10 +170,9 @@ const Navbar = () => {
                   />
                 </div>
 
-                {/* Logo Text */}
                 <div className="flex flex-col">
                   <span className="text-2xl lg:text-3xl font-bold text-gray-900 group-hover:text-green-700 transition-colors">
-                    DailyBasket
+                    DailyBaskets
                   </span>
                   <span className="text-xs text-gray-500 -mt-1 hidden sm:block">
                     Fresh Groceries • Fast Delivery
@@ -218,16 +215,6 @@ const Navbar = () => {
 
             {/* Desktop Right Section */}
             <div className="hidden lg:flex items-center space-x-3">
-              {/* Search Button */}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2.5 rounded-xl bg-gray-50 hover:bg-green-50 transition-colors duration-200 group"
-              >
-                <Search className="w-5 h-5 text-gray-600 group-hover:text-green-600" />
-              </motion.button>
-
               {/* User Account */}
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -260,7 +247,12 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <div className="lg:hidden flex items-center space-x-3">
               <button
-                onClick={() => setSearchOpen(!searchOpen)}
+                onClick={() => {
+                  setSearchOpen(!searchOpen);
+                  if (!searchOpen && searchInputRef.current) {
+                    setTimeout(() => searchInputRef.current?.focus(), 100);
+                  }
+                }}
                 className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
               >
                 <Search className="w-5 h-5 text-gray-600" />
@@ -287,92 +279,86 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop Search Bar */}
-          <AnimatePresence>
-            {searchOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="hidden lg:block pb-4"
-              >
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search for fruits, vegetables, dairy, meat, snacks..."
-                    className="w-full px-6 py-4 pl-14 pr-24 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 text-gray-900 placeholder-gray-500"
-                  />
-                  <Search className="absolute left-5 top-4 w-5 h-5 text-gray-400" />
-                  <button className="absolute right-3 top-2.5 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:opacity-90 transition-opacity">
-                    Search
+          {/* ALWAYS VISIBLE Search Bar (Desktop) */}
+          <div className="hidden lg:block pb-4">
+            <form onSubmit={handleSearch}>
+              <div className="relative">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Search for fruits, vegetables, dairy, meat, snacks..."
+                  className="w-full px-6 py-4 pl-14 pr-24 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 text-gray-900 placeholder-gray-500 transition-all duration-300"
+                />
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="absolute right-0 top-0  h-full px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2"
+                >
+                  <Search className="w-4 h-4" />
+                  Search
+                </motion.button>
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-32 top-2 text-gray-400 hover:text-gray-600"
+                  >
+                    <X className="w-4 h-4" />
                   </button>
-                  <div className="absolute right-32 top-3 flex items-center space-x-2">
-                    <span className="text-sm text-gray-500">Trending:</span>
-                    <span className="text-sm text-green-600 font-medium">
-                      Apples
-                    </span>
-                    <span className="text-gray-300">•</span>
-                    <span className="text-sm text-green-600 font-medium">
-                      Milk
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                )}
+              </div>
+            </form>
+          </div>
 
-          {/* Mobile Search Bar */}
+          {/* Mobile Search Bar (Toggleable) */}
           <AnimatePresence>
             {searchOpen && (
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
+                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                animate={{ opacity: 1, height: "auto", marginTop: 16 }}
+                exit={{ opacity: 0, height: 0, marginTop: 0 }}
                 className="lg:hidden pb-4"
               >
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search groceries..."
-                    className="w-full px-4 py-3 pl-12 pr-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 text-gray-900"
-                  />
-                  <Search className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                  <button
-                    onClick={() => setSearchOpen(false)}
-                    className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
+                <form onSubmit={handleSearch}>
+                  <div className="relative">
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      placeholder="Search groceries..."
+                      className="w-full px-4 py-3 pl-12 pr-24 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 text-gray-900"
+                    />
+                    <Search className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
+                    <motion.button
+                      type="submit"
+                      whileTap={{ scale: 0.95 }}
+                      className="absolute right-0 top-0 h-full px-4 py-1.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1"
+                    >
+                      <Search className="w-3 h-3" />
+                      <span className="text-sm">Go</span>
+                    </motion.button>
+                    {searchQuery && (
+                      <button
+                        type="button"
+                        onClick={() => setSearchQuery("")}
+                        className="absolute right-20 top-3.5 text-gray-400 hover:text-gray-600"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </form>
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Categories Bar (Desktop) */}
-          <div className="hidden lg:flex items-center justify-between py-3 border-t border-gray-100">
-            <div className="flex items-center space-x-6">
-              <span className="text-sm font-medium text-gray-700">
-                Shop by Category:
-              </span>
-              <div className="flex items-center space-x-4">
-                {categories.map((category) => (
-                  <button
-                    key={category.name}
-                    className="flex items-center space-x-2 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors group"
-                  >
-                    {category.emoji ? (
-                      <span className="text-lg">{category.icon}</span>
-                    ) : (
-                      <category.icon className={`w-4 h-4 ${category.color}`} />
-                    )}
-                    <span className="text-sm text-gray-700 group-hover:text-green-600">
-                      {category.name}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+          {/* Categories Bar REMOVED - No Shop by Category section */}
         </div>
 
         {/* Mobile Menu Overlay */}
@@ -405,7 +391,7 @@ const Navbar = () => {
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-gray-900">
-                          DailyBasket
+                          DailyBaskets
                         </h3>
                         <p className="text-sm text-gray-500">
                           Your Cart: ৳1,247.00
@@ -418,6 +404,23 @@ const Navbar = () => {
                     >
                       <X className="w-6 h-6 text-gray-600" />
                     </button>
+                  </div>
+
+                  {/* Search in Mobile Menu */}
+                  <div className="mb-6">
+                    <form onSubmit={handleSearch}>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onKeyDown={handleKeyDown}
+                          placeholder="Search products..."
+                          className="w-full px-4 py-3 pl-12 pr-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 text-gray-900"
+                        />
+                        <Search className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
+                      </div>
+                    </form>
                   </div>
 
                   {/* User Info */}
@@ -489,34 +492,6 @@ const Navbar = () => {
                         </motion.div>
                       ))}
                     </motion.div>
-                  </div>
-
-                  {/* Categories Section */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">
-                      Categories
-                    </h4>
-                    <div className="grid grid-cols-3 gap-2">
-                      {categories.map((category) => (
-                        <button
-                          key={category.name}
-                          className="flex flex-col items-center p-3 rounded-xl bg-gray-50 hover:bg-green-50 transition-colors group"
-                        >
-                          {category.emoji ? (
-                            <span className="text-2xl mb-1">
-                              {category.icon}
-                            </span>
-                          ) : (
-                            <category.icon
-                              className={`w-6 h-6 ${category.color} mb-1`}
-                            />
-                          )}
-                          <span className="text-xs text-gray-700 group-hover:text-green-600 font-medium">
-                            {category.name}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
                   </div>
 
                   {/* Quick Actions */}

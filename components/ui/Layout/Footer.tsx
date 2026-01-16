@@ -210,7 +210,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold text-gray-900">
-                    DailyBasket
+                    DailyBaskets
                   </h2>
                   <p className="text-green-600 font-medium">
                     Bangladeshs Fresh Grocery Store
@@ -231,7 +231,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-green-600" />
-                  <span className="text-gray-700">support@dailybasket.com</span>
+                  <span className="text-gray-700">support@DailyBaskets.com</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-green-600 mt-1" />
@@ -277,41 +277,7 @@ const Footer = () => {
             </motion.div>
           </div>
 
-          {/* Categories */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-              Shop by Category
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {categories.map((category, index) => (
-                <motion.div
-                  key={category.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -5 }}
-                  className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 transition-all cursor-pointer group"
-                >
-                  <div className="flex flex-col items-center text-center space-y-3">
-                    <div
-                      className={`p-4 rounded-2xl bg-gray-50 group-hover:bg-green-50 transition-colors ${category.color}`}
-                    >
-                      <category.icon className="w-8 h-8" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900">
-                        {category.name}
-                      </h4>
-                      <p className="text-sm text-gray-500 mt-1">
-                        {category.count}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+       
 
           {/* Newsletter */}
           <motion.div
@@ -411,7 +377,7 @@ const Footer = () => {
               <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <div className="text-center md:text-left">
                   <p className="text-gray-600">
-                    © {currentYear} DailyBasket. All rights reserved.
+                    © {currentYear} DailyBaskets. All rights reserved.
                   </p>
                   <p className="text-sm text-gray-500 mt-1">
                     Made with <Heart className="w-4 h-4 text-red-500 inline" />{" "}

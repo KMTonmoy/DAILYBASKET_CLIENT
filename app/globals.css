@@ -3,9 +3,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Custom Primary Color - Emerald Green for DailyBasket */
+/* Custom Primary Color - Emerald Green for DailyBaskets */
 :root {
-  --primary: #22C55E;
+  --primary: #22c55e;
   --primary-light: #86efac;
   --primary-dark: #16a34a;
   --primary-50: #f0fdf4;
@@ -13,7 +13,7 @@
   --primary-200: #bbf7d0;
   --primary-300: #86efac;
   --primary-400: #4ade80;
-  --primary-500: #22C55E;
+  --primary-500: #22c55e;
   --primary-600: #16a34a;
   --primary-700: #15803d;
   --primary-800: #166534;
@@ -101,7 +101,6 @@ h6 {
   margin: 0 0 0.5rem 0;
   line-height: 1.2;
   font-weight: 600;
-  color: #1f2937; /* gray-800 */
 }
 
 h1 {
@@ -124,7 +123,6 @@ h4 {
 p {
   font-family: "Nunito", sans-serif;
   margin-bottom: 1rem;
-  color: #4b5563; /* gray-600 */
 }
 
 /* Span */

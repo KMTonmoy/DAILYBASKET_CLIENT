@@ -6,7 +6,11 @@
       "slug": "fresh-red-apples",
       "description": "Fresh, juicy red apples imported from Australia. Perfect for snacks and cooking.",
       "longDescription": "Premium quality red apples sourced from the finest orchards in Australia. These apples are crisp, sweet, and perfect for eating fresh, baking, or making juices. Rich in antioxidants and dietary fiber.",
-      "images": ["/products/apples.jpg", "/products/apples-2.jpg", "/products/apples-3.jpg"],
+      "images": [
+        "https://media.istockphoto.com/id/187420397/photo/red-apples.jpg?s=612x612&w=0&k=20&c=2gP5VblBy8wBB1aMuB9godHm_QYuKOdvb1U_f9h4Kjk=",
+        "https://images.seattletimes.com/wp-content/uploads/2022/09/09292022_sps-apple-handout_184818.jpg?d=780x520",
+        "https://t3.ftcdn.net/jpg/01/97/74/06/360_F_197740683_DKN7suJCRufWcDL8k7OOS6PGWa5no6qs.jpg"
+      ],
       "price": 180,
       "originalPrice": 220,
       "discountPercentage": 18,
@@ -38,7 +42,10 @@
       "slug": "basmati-rice",
       "description": "Premium quality basmati rice, aged for perfect aroma and texture.",
       "longDescription": "Aged basmati rice with long grains and distinct aroma. Perfect for biryani, pulao, and other traditional dishes. Each grain remains separate and fluffy after cooking.",
-      "images": ["/products/rice.jpg", "/products/rice-2.jpg"],
+      "images": [
+        "https://d2t8nl1y0ie1km.cloudfront.net/images/680dfd74f666bbedf2c86050_Daawat-Biryani-Basmati-Rice-1kg_1.webp",
+        "https://be.quickybd.com/admin/public/productImage/6708e5d1a556a.jpg"
+      ],
       "price": 1250,
       "category": "Grains",
       "subCategory": "Rice",
@@ -62,7 +69,9 @@
       "slug": "fresh-chicken-breast",
       "description": "Boneless chicken breast, fresh from local farms. Antibiotic-free.",
       "longDescription": "Fresh, boneless chicken breast from antibiotic-free, free-range chickens. High in protein and low in fat. Perfect for grilling, baking, or stir-frying.",
-      "images": ["/products/chicken.jpg"],
+      "images": [
+        "https://www.themeatman.co.uk/cdn/shop/files/rsz_chicken2023_893b141c-7c09-4c8e-af27-d7092806a6e6_2048x.jpg?v=1695739660"
+      ],
       "price": 350,
       "originalPrice": 400,
       "discountPercentage": 12.5,
@@ -88,7 +97,10 @@
       "slug": "pure-mustard-oil",
       "description": "100% pure mustard oil, cold-pressed for maximum nutrition.",
       "longDescription": "Cold-pressed mustard oil retaining all natural nutrients and flavor. Ideal for cooking, pickling, and traditional Bangladeshi dishes.",
-      "images": ["/products/oil.jpg", "/products/oil-2.jpg"],
+      "images": [
+        "https://i.chaldn.com/_mpimage/radhuni-pure-mustard-oil-1-ltr?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D132549&q=best&v=1",
+        "https://shodagor.com/public/uploads/all/ewm1H.jpg"
+      ],
       "price": 280,
       "category": "Cooking Oil",
       "subCategory": "Mustard Oil",
@@ -112,7 +124,9 @@
       "slug": "fresh-potatoes",
       "description": "Local farm fresh potatoes, great for all types of cooking.",
       "longDescription": "Fresh potatoes sourced from local farmers. Perfect for boiling, frying, roasting, and making mashed potatoes.",
-      "images": ["/products/potatoes.jpg"],
+      "images": [
+        "https://www.forksoverknives.com/uploads/2025/03/new-potatoes-featured-image.jpg?format=auto&optimize=high&width=1440"
+      ],
       "price": 35,
       "originalPrice": 45,
       "discountPercentage": 22,
@@ -138,7 +152,10 @@
       "slug": "farm-eggs",
       "description": "Fresh farm eggs, rich in protein and nutrients.",
       "longDescription": "Fresh eggs from free-range chickens. Rich in protein, vitamins, and minerals. Perfect for breakfast, baking, and cooking.",
-      "images": ["/products/eggs.jpg", "/products/eggs-2.jpg"],
+      "images": [
+        "https://www.beverlybees.com/wp-content/uploads/2024/04/Screenshot_20240607_122500_Instagram.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCvi4FUYchi4044uT4ycBMORpJIrXCp-et8A&s"
+      ],
       "price": 140,
       "category": "Dairy",
       "subCategory": "Eggs",
